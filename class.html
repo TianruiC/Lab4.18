@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Reduce</title>
+  </head>
+  <body>
+
+  </body>
+  <script type="text/javascript">
+    var set=[16,4,39,500,21,501];
+    var sum=function(data)
+    {
+      return data.reduce(function(d,total)
+      {
+        return d+total;
+      });
+    }
+    var max=set.reduce(function(d,cMax)
+    {
+      if(d>cMax){return d;}
+      else  {return cMax;}
+    });
+    var product=set.reduce(function(d,pro)
+    {
+      return d*pro;
+    })
+    console.log(sum(set));
+    console.log(max);
+    console.log(product);
+  </script>
+</html>
