@@ -60,18 +60,17 @@ var draw=function(data){
                       .attr("fill",function(d){
                         console.log(color(d))
                         return color(d)})
-  ;
-  var legendLines=legend.selectAll("image")
-                        .data(data)
-                        .enter()
-                        .append("image")
-                        .classed("legendPic",true)
-                        .attr("transform",function(d,i){return "translate("+(xScale(i))+","+0+")";})
-                        .attr("xlink:href", function(d){return d.picture})
-                        .attr("width",30)
-                        .attr("height",30)
-                        .on("click",function(d,i){
-                          updateSingle(data[i])
-                          updateInfo(data,i)
-                        })
+  // var legendLines=legend.selectAll("image")
+  //                       .data(data)
+  //                       .enter()
+  //                       .append("image")
+  //                       .classed("legendPic",true)
+  //                       .attr("transform",function(d,i){return "translate("+(xScale(i))+","+0+")";})
+  //                       .attr("xlink:href", function(d){return d.picture})
+  //                       .attr("width",30)
+  //                       .attr("height",30)
+  //                       .on("click",function(d,i){
+  //                         updateSingle(data[i])
+  //                         updateInfo(data,i)
+  //                       })
 }
