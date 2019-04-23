@@ -35,13 +35,14 @@ var color=function(int)
   else{return '#c6dbef'}
 }
 var draw=function(data){
+  var gap=1
   var array=getALL(data)
   var people=data.length
-  var screen={width:500,height:500}
-  var margins = {top: 50, right: 20, bottom: 20, left: 50}
+  var screen={width:700,height:700}
+  var margins = {top: 50, right: 50, bottom: 50, left: 50}
   var height=screen.height-margins.top-margins.bottom
   var width=screen.width-margins.right-margins.left
-  console.log(height,width)
+  //console.log(height,width)
   var svg=d3.select("body").append("svg")
             .attr("id","graph")
             .attr("width",screen.width)
@@ -55,22 +56,43 @@ var draw=function(data){
                       .append("rect")
                       .attr("x",function(d,i){return (i%people)*width/people;})
                       .attr("y",function(d,i){return (Math.floor(i/people))*height/people;})
-                      .attr("width",width/people-1)
-                      .attr("height",height/people-1)
-                      .attr("fill",function(d){
-                        console.log(color(d))
-                        return color(d)})
-  // var legendLines=legend.selectAll("image")
-  //                       .data(data)
-  //                       .enter()
-  //                       .append("image")
-  //                       .classed("legendPic",true)
-  //                       .attr("transform",function(d,i){return "translate("+(xScale(i))+","+0+")";})
-  //                       .attr("xlink:href", function(d){return d.picture})
-  //                       .attr("width",30)
-  //                       .attr("height",30)
-  //                       .on("click",function(d,i){
-  //                         updateSingle(data[i])
-  //                         updateInfo(data,i)
-  //                       })
+                      .attr("width",width/people-gap)
+                      .attr("height",height/people-gap)
+                      .attr("fill",function(d){return color(d)})
+                      .on("mouseover",function(d){
+                        d3.select(this).attr("stroke","black")
+                          .attr("stroke-width",gap)
+                        var xPosition = (d3.select(this).attr("x"));
+                        var yPosition = (d3.select(this).attr("y"));
+                        plotLand.append('rect')
+                           .attr("id","tooltipBG")
+                           .attr("x",xPosition)
+                           .attr("y",yPosition-31)
+                           .attr("width",70)
+                           .attr("height",30)
+                           .style("fill","#EDF0EC")
+                        plotLand.append('text')
+                           .attr("id","tooltipText")
+                           .attr("x",xPosition+10)
+                           .attr("y",yPosition-10)
+                           .text("r: "+d.toFixed(2))
+                           .attr("font-size","20px")
+                      })
+                      .on("mouseout",function(d){
+                        d3.select(this).attr("stroke","none")
+                        d3.select("#tooltipBG").remove()
+                        d3.select("#tooltipText").remove()
+                      })
+  var legend=svg.append("g")
+                .classed("legend",true)
+                .attr("transform","translate("+margins.left+","+(screen.height-margins.bottom+2)+")");
+  var legendLines=legend.selectAll("image")
+                        .data(data)
+                        .enter()
+                        .append("image")
+                        .classed("legendPic",true)
+                        .attr("transform",function(d,i){return "translate("+0+","+0+")";})
+                        .attr("xlink:href", function(d){return d.picture})
+                        .attr("width",30)
+                        .attr("height",30)
 }
