@@ -1,9 +1,6 @@
 d3.json("classData.json").then(function(data)
-{
-  //console.log(correlation(0,1,data))
-  drawQuiz(data)
-  drawHW(data)
-},function(err){console.log(err);})
+{ drawQuiz(data)
+  drawHW(data)},function(err){console.log(err);})
 var correlationQuiz=function(x,y,data)
 {
   var datax=data[x].quizes.map(function(d){return d.grade})
